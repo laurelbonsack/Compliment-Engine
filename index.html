@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Compliment Machine</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0a0a0f;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Georgia', serif;
+    padding: 2rem;
+  }
+
+  #compliment {
+    color: #e8d5ff;
+    font-size: clamp(1.4rem, 3vw, 2.2rem);
+    text-align: center;
+    max-width: 780px;
+    line-height: 1.6;
+    min-height: 6rem;
+    text-shadow:
+      0 0 20px rgba(180, 100, 255, 0.8),
+      0 0 40px rgba(180, 100, 255, 0.4),
+      0 0 80px rgba(180, 100, 255, 0.2);
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    letter-spacing: 0.02em;
+  }
+
+  #compliment.visible {
+    opacity: 1;
+  }
+
+  button {
+    margin-top: 3.5rem;
+    padding: 1rem 2.8rem;
+    font-size: 1.1rem;
+    font-family: 'Georgia', serif;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    background: transparent;
+    color: #c084fc;
+    border: 1px solid #7c3aed;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow:
+      0 0 12px rgba(124, 58, 237, 0.3),
+      inset 0 0 12px rgba(124, 58, 237, 0.05);
+  }
+
+  button:hover {
+    color: #f0e0ff;
+    border-color: #c084fc;
+    box-shadow:
+      0 0 24px rgba(192, 132, 252, 0.5),
+      inset 0 0 20px rgba(192, 132, 252, 0.1);
+  }
+
+  button:active {
+    transform: scale(0.97);
+  }
+</style>
+</head>
+<body>
+
+<div id="compliment"></div>
+<button onclick="showCompliment()">Compliment Me</button>
+
+<script>
+  const all = [
+    "Your work ethic could power a small city.",
+    "You have never once sent a vague email. Historians will study this.",
+    "You finish what you start. The universe notices.",
+    "Your follow-through is the stuff of legend.",
+    "Somewhere, a project manager is weeping tears of joy and they don't know why. It's you.",
+    "You are the person other people cite as their reason for trying harder.",
+    "Your attention to detail has prevented at least three disasters no one will ever know about.",
+    "You show up. Every time. The bar is low and you are in orbit.",
+    "The quality of your work is deeply, personally offensive to mediocrity.",
+    "You do not cut corners. Corners fear you.",
+    "Your deadlines do not negotiate with you. They simply comply.",
+    "You have replied to every message in a timely manner. You are a myth made flesh.",
+    "The documentation you wrote will outlast civilizations.",
+    "Your calendar is a sacred text. You keep every appointment like a promise to a god.",
+    "You have never left a task half-done. This is rarer than you know.",
+    "Other people call it a to-do list. You call it a prophecy you have already fulfilled.",
+    "The way you handle feedback would make a philosopher weep and take notes.",
+    "You ask clarifying questions before starting. You are the chosen one.",
+    "Your commit messages are clear, informative, and written as if posterity is watching. It is.",
+    "You have read the entire brief every single time. Every time. Bow.",
+    "You are the reason this whole thing is still running.",
+    "When you are in a meeting, the meeting has a point.",
+    "You have never caused a production incident out of carelessness. The servers know your name and trust it.",
+    "Your code reviews are constructive without being cruel. Future engineers will be told stories of you.",
+    "You do not ship things that are almost ready. You ship things that are ready.",
+    "You have untangled logic so twisted it would have broken lesser minds. You simply untangled it.",
+    "Your pull requests have descriptions. The ancient texts foretold this.",
+    "You have flagged a problem before it became a crisis more times than anyone knows.",
+    "You are the reason the retrospective has action items that actually get done.",
+    "You made something difficult look easy. The difficulty has not forgotten.",
+    "The universe assembled a great many atoms over billions of years to produce someone who responds to Slack this promptly.",
+    "You have asked for help at exactly the right moment and it made everything go better. That takes wisdom.",
+    "Your priorities are so well-ordered that the entire team moves faster in your wake.",
+    "You turned an impossible requirement into a working feature and told no one how hard it was. We know.",
+    "You have never once made the same mistake twice. The laws of physics are impressed.",
+    "The thing you quietly fixed last Tuesday? It mattered more than anyone will ever tell you.",
+    "You have shipped things on a Friday and they have been fine. You are either reckless or transcendent. It's the second one.",
+    "You are on time. You are prepared. You are, frankly, a lot.",
+    "Your patience in the face of changing requirements is a phenomenon scientists cannot fully explain.",
+    "You built a thing from nothing but a vague idea and a deadline. You are not human. You are a force.",
+    "Somewhere in the universe there is a star that burns because of your output this quarter.",
+  ];
+
+  let queue = [];
+
+  function shuffle(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  function next() {
+    if (queue.length === 0) queue = shuffle([...all]);
+    return queue.pop();
+  }
+
+  const el = document.getElementById('compliment');
+
+  function showCompliment() {
+    el.classList.remove('visible');
+    setTimeout(() => {
+      el.textContent = next();
+      el.classList.add('visible');
+    }, 150);
+  }
+
+  showCompliment();
+</script>
+</body>
+</html>
